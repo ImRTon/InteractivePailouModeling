@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     // _pailouComps[col / x][row / y]
-    public List<List<Component>> _pailouComps;
+    public List<List<PComponent>> _pailouComps;
 
     public GameObject choiceViewOb;
     public GameObject componentUITreeRoot;
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     private int _offsetX;
     private int _offsetY;
 
-    public Component _nowComp;
+    public PComponent _nowComp;
 
     public GameObject ClippedRoof;
     public GameObject EavesRoof;
@@ -58,7 +59,16 @@ public class GameManager : MonoBehaviour
     }
     public void BuildUITree()
     {
-        TraceUITree(componentUITreeRoot);
+        int sideOffsetCount = 0;
+        for (int i = 0; i < componentUITreeRoot.transform.childCount; i++)
+        {
+            GameObject child = componentUITreeRoot.transform.GetChild(i).gameObject;
+            if (child.GetComponent<Text>() != null)
+                continue;
+            RectTransform childTransf = PailouUtils.GetRectTransform(child);
+            childTransf.localPosition = new Vector3(UIBoxWidth / 2 + UIBoxOffsetX + sideOffsetCount++ * _offsetX, -UIBoxHeight / 2 - UIBoxOffsetY, 0);
+            sideOffsetCount += Mathf.Max(TraceUITree(child) - 1, 0);
+        }    
     }
 
     public int TraceUITree(GameObject parent)
@@ -66,10 +76,12 @@ public class GameManager : MonoBehaviour
         int sideOffsetCount = 0;
         for (int i = 0; i < parent.transform.childCount; i++)
         {
-            GameObject child = componentUITreeRoot.transform.GetChild(i).gameObject;
+            GameObject child = parent.transform.GetChild(i).gameObject;
+            if (child.GetComponent<Text>() != null)
+                continue;
             RectTransform childTransf = PailouUtils.GetRectTransform(child);
             childTransf.localPosition = new Vector3(sideOffsetCount++ * _offsetX, -_offsetY, 0);
-            sideOffsetCount += TraceUITree(child);
+            sideOffsetCount += Mathf.Max(TraceUITree(child) - 1, 0);
         }
         return sideOffsetCount;
     }
@@ -92,6 +104,7 @@ public class GameManager : MonoBehaviour
             compUIOb.transform.SetParent(choiceViewOb.transform);
             ComponentUI compUI = compUIOb.GetComponent<ComponentUI>();
             compUI._parentComponent = componentUI._myComponent;
+            compUI.SetInstallDir(Direction.UP);
             RectTransform compUITransf = PailouUtils.GetRectTransform(compUIOb);
             compUITransf.transform.localPosition = new Vector3(60 + offsetCount++ * _offsetX + blockOffsetCount * 20, -60, 0);
             compUITransf.transform.localScale = Vector3.one;
@@ -100,10 +113,25 @@ public class GameManager : MonoBehaviour
         // Side candidate comps
         for (int i = 0; i < componentUI.sideCandidateComps.Count; i++)
         {
-            GameObject compUIOb = Instantiate(GetUIPrefabObFromPailouComp(componentUI.topCandidateComps[i]));
+            GameObject compUIOb = Instantiate(GetUIPrefabObFromPailouComp(componentUI.sideCandidateComps[i]));
             compUIOb.transform.SetParent(choiceViewOb.transform);
             ComponentUI compUI = compUIOb.GetComponent<ComponentUI>();
             compUI._parentComponent = componentUI._myComponent;
+            // Component install from side is always on the left side.
+            compUI.SetInstallDir(Direction.LEFT);
+            RectTransform compUITransf = PailouUtils.GetRectTransform(compUIOb);
+            compUITransf.transform.localPosition = new Vector3(60 + offsetCount++ * _offsetX + blockOffsetCount * 20, -60, 0);
+            compUITransf.transform.localScale = Vector3.one;
+        }
+        blockOffsetCount++;
+        for (int i = 0; i < componentUI.sideCandidateComps.Count; i++)
+        {
+            GameObject compUIOb = Instantiate(GetUIPrefabObFromPailouComp(componentUI.sideCandidateComps[i]));
+            compUIOb.transform.SetParent(choiceViewOb.transform);
+            ComponentUI compUI = compUIOb.GetComponent<ComponentUI>();
+            compUI._parentComponent = componentUI._myComponent;
+            // Component install from side is always on the left side.
+            compUI.SetInstallDir(Direction.RIGHT);
             RectTransform compUITransf = PailouUtils.GetRectTransform(compUIOb);
             compUITransf.transform.localPosition = new Vector3(60 + offsetCount++ * _offsetX + blockOffsetCount * 20, -60, 0);
             compUITransf.transform.localScale = Vector3.one;
@@ -112,10 +140,11 @@ public class GameManager : MonoBehaviour
         // Top candidate comps
         for (int i = 0; i < componentUI.bottomCandidateComps.Count; i++)
         {
-            GameObject compUIOb = Instantiate(GetUIPrefabObFromPailouComp(componentUI.topCandidateComps[i]));
+            GameObject compUIOb = Instantiate(GetUIPrefabObFromPailouComp(componentUI.bottomCandidateComps[i]));
             compUIOb.transform.SetParent(choiceViewOb.transform);
             ComponentUI compUI = compUIOb.GetComponent<ComponentUI>();
             compUI._parentComponent = componentUI._myComponent;
+            compUI.SetInstallDir(Direction.DOWN);
             RectTransform compUITransf = PailouUtils.GetRectTransform(compUIOb);
             compUITransf.transform.localPosition = new Vector3(60 + offsetCount++ * _offsetX + blockOffsetCount * 20, -60, 0);
             compUITransf.transform.localScale = Vector3.one;

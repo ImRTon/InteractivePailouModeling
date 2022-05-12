@@ -27,6 +27,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EavesRoofBut Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6951135990962415054, guid: 42b42a121df21014a9ef64c7a5c904ea, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.8352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951135990962415054, guid: 42b42a121df21014a9ef64c7a5c904ea, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6951135990962415055, guid: 42b42a121df21014a9ef64c7a5c904ea, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

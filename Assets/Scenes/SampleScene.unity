@@ -201,6 +201,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 846145936}
     m_Modifications:
+    - target: {fileID: 275603205954461620, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
+      propertyPath: m_Text
+      value: U
+      objectReference: {fileID: 0}
     - target: {fileID: 4873035148451195457, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
       propertyPath: m_Name
       value: LintelBut Variant
@@ -271,11 +275,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4873035148451195458, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4873035148451195458, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -60
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 4873035148451195458, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -292,6 +296,18 @@ PrefabInstance:
     - target: {fileID: 9177012254416869958, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
       propertyPath: _isOnScene
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177012254416869958, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
+      propertyPath: _myComponent
+      value: 
+      objectReference: {fileID: 1969728381}
+    - target: {fileID: 9177012254416869958, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
+      propertyPath: _parentComponent
+      value: 
+      objectReference: {fileID: 1917994186}
+    - target: {fileID: 9177012254416869958, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
+      propertyPath: _parentInstallDir
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12cb97644212aea4b99152fa9322b2a2, type: 3}
@@ -952,6 +968,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 846145936}
+  - component: {fileID: 846145937}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -979,6 +996,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0000027264791, y: 0}
   m_SizeDelta: {x: 463, y: 1000}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &846145937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846145935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281c137ca80f2374598bd5c90ec19ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _myComponent: {fileID: 1917994186}
+  _parentComponent: {fileID: 0}
+  _parentInstallDir: 3
+  _isOnScene: 1
+  _pailouComponent: 0
+  _dirText: {fileID: 0}
+  topCandidateComps: 
+  sideCandidateComps: 
+  bottomCandidateComps: 05000000
 --- !u!1 &938400438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1917994185}
+  - component: {fileID: 1917994186}
   m_Layer: 0
   m_Name: Pailou3DManager
   m_TagString: Untagged
@@ -2263,11 +2302,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1917994186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917994184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda9c93ff6d1fe44b922657c3019c847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentType: 0
+  _compsUnder: []
+  _compsUpper: []
+  _compsSide: []
+  _myButton: {fileID: 846145935}
 --- !u!4 &1969728380 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 505883453088860674, guid: 862e88c729c24b649aaa5efa7de9ac52, type: 3}
   m_PrefabInstance: {fileID: 1433690773}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1969728381 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7085515669551575514, guid: 862e88c729c24b649aaa5efa7de9ac52, type: 3}
+  m_PrefabInstance: {fileID: 1433690773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda9c93ff6d1fe44b922657c3019c847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2064654082
 GameObject:
   m_ObjectHideFlags: 0

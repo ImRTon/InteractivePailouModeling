@@ -95,6 +95,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6090277161426417723, guid: f7a31674d2d6d804ba1099309f27f1a2, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.8352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090277161426417723, guid: f7a31674d2d6d804ba1099309f27f1a2, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6090277161426417724, guid: f7a31674d2d6d804ba1099309f27f1a2, type: 3}
       propertyPath: m_Sprite
       value: 

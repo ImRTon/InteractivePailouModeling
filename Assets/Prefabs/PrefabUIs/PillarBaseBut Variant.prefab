@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1635065921202142296, guid: a6f201dccfc87504090aefb7bf5afcba, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.8352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635065921202142296, guid: a6f201dccfc87504090aefb7bf5afcba, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1635065921202142297, guid: a6f201dccfc87504090aefb7bf5afcba, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

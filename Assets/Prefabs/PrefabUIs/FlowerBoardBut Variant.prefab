@@ -15,6 +15,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlowerBoardBut Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2143467058936378938, guid: 21fac571a808520439ef57bdf3c20760, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.8352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 2143467058936378938, guid: 21fac571a808520439ef57bdf3c20760, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2143467058936378939, guid: 21fac571a808520439ef57bdf3c20760, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

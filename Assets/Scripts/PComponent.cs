@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Component : MonoBehaviour
+public class PComponent : MonoBehaviour
 {
     public PailouComponent _componentType;
 
-    public List<Component> _compsUnder = new List<Component>();
-    public List<Component> _compsUpper = new List<Component>();
-    public List<Component> _compsSide = new List<Component>();
+    public List<PComponent> _compsUnder = new List<PComponent>();
+    public List<PComponent> _compsUpper = new List<PComponent>();
+    public List<PComponent> _compsSide = new List<PComponent>();
 
     public GameObject _myButton;
     // Start is called before the first frame update
     void Start()
     {
-        GetCenterBias();
     }
 
     // Update is called once per frame
@@ -57,7 +56,7 @@ public class Component : MonoBehaviour
         return Vector3.zero;
     }
 
-    public void AttachWith(Component other, Direction dir, Margin margin, float marginDis)
+    public void AttachWith(PComponent other, Direction dir, Margin margin, float marginDis)
     {
         other.transform.parent = transform;
         other.transform.localPosition = GetOffsetOf(dir) - GetCenterBias() - other.GetOffsetOf(PailouUtils.Opposite(dir)) + other.GetCenterBias();

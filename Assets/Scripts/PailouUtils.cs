@@ -5,7 +5,7 @@ using UnityEngine;
 public static class PailouUtils
 {
     public static GameManager _gameManager;
-    public static Component _nowFocusComp;
+    public static PComponent _nowFocusComp;
     public static RectTransform GetRectTransform(GameObject gameObject)
     {
         return gameObject.GetComponent<RectTransform>();
