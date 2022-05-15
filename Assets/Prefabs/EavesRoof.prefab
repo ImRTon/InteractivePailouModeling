@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5369152555400989317}
   - component: {fileID: 8910008939344408081}
   - component: {fileID: 4825676709151395071}
+  - component: {fileID: 2964763581726461545}
   m_Layer: 0
   m_Name: EavesRoof
   m_TagString: Untagged
@@ -97,7 +98,22 @@ MonoBehaviour:
   _componentType: 2
   _compsUnder: []
   _compsUpper: []
-  _compsSide: []
+  _compsRight: []
+  _compsLeft: []
+  _procedureContainer: []
   _procedureType: 1
   _myButton: {fileID: 0}
   _stage: 0
+--- !u!65 &2964763581726461545
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081243498705756404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4863875, y: 1.841771, z: 1.8540248}
+  m_Center: {x: 0.071282625, y: 0.67475647, z: -0.06809181}

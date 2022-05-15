@@ -198,7 +198,8 @@ public class PComponent : MonoBehaviour
         }
 
         // Before the position is set.
-        
+        // Count length for dynamic length content
+        PComponent parentPComp = null;
         switch (_componentType)
         {
             case PailouComponent.LINTEL:
@@ -224,7 +225,12 @@ public class PComponent : MonoBehaviour
                     else if (other._componentType == PailouComponent.MIDDLE_TOUKUNG)
                     {
                         margin = Margin.CENTER;
-
+                        parentPComp = this;
+                    }
+                    else if (other._componentType == PailouComponent.FLOWER_BOARD)
+                    {
+                        margin = Margin.CENTER;
+                        parentPComp = this;
                     }
                 }
                 break;
@@ -249,6 +255,29 @@ public class PComponent : MonoBehaviour
                     {
                         other.SetCompWidth(GetObDisHorizontal(_procedureContainer[0], true));
                         margin = Margin.TOP;
+                    }
+                }
+                break;
+            case PailouComponent.MIDDLE_TOUKUNG:
+                {
+                    if (other._componentType == PailouComponent.ROOF)
+                    {
+                        // Get lintel
+                        parentPComp = transform.parent.GetComponent<PComponent>();
+                    }
+                    else if (other._componentType == PailouComponent.SIDE_TOUKUNG)
+                    {
+                        // Get lintel
+                        parentPComp = transform.parent.GetComponent<PComponent>();
+                    }
+                }
+                break;
+            case PailouComponent.ROOF:
+                {
+                    if (other._componentType == PailouComponent.ROOF_EDGE)
+                    {
+                        // Get lintel
+                        parentPComp = transform.parent.parent.GetComponent<PComponent>();
                     }
                 }
                 break;
@@ -300,14 +329,39 @@ public class PComponent : MonoBehaviour
                     {
                         float width = GetBounding().x;
                         float obWidth = other.GetBounding().x;
-                        PComponent parrent = transform.parent.GetComponent<PComponent>();
-                        float parentWidth = parrent.GetBounding().x;
+                        float parentWidth = parentPComp.GetBounding().x;
                         int obCount = (int)(parentWidth / width);
+                        if (parentPComp._componentType == PailouComponent.ROOF || parentPComp._componentType == PailouComponent.MIDDLE_TOUKUNG)
+                        {
+                            obCount = (int)Mathf.Ceil(parentWidth / width);
+                        }
                         float offset = parentWidth / (float)obCount;
-                        if (obCount % 2 == 0)
-                            obCount = obCount / 2 - 1;
-                        else
+                        if (obCount % 2 == 1)
                             obCount = obCount / 2;
+                        else
+                            obCount = obCount / 2 - 1;
+                        float centerBias = (other.transform.GetComponent<Renderer>().bounds.center.x - other.transform.GetComponent<Collider>().bounds.center.x);
+                        other.SetLocalPosX(offset * obCount + 0);
+                    }
+                }
+                break;
+            case PailouComponent.ROOF:
+                {
+                    if (other._componentType == PailouComponent.ROOF_EDGE)
+                    {
+                        float width = GetBounding().x;
+                        float obWidth = other.GetBounding().x;
+                        float parentWidth = parentPComp.GetBounding().x;
+                        int obCount = (int)(parentWidth / width);
+                        if (parentPComp._componentType == PailouComponent.ROOF || parentPComp._componentType == PailouComponent.MIDDLE_TOUKUNG)
+                        {
+                            obCount = (int)Mathf.Ceil(parentWidth / width);
+                        }
+                        float offset = parentWidth / (float)obCount;
+                        if (obCount % 2 == 1)
+                            obCount = obCount / 2;
+                        else
+                            obCount = obCount / 2 - 1;
                         float centerBias = (other.transform.GetComponent<Renderer>().bounds.center.x - other.transform.GetComponent<Collider>().bounds.center.x);
                         other.SetLocalPosX(offset * obCount + 0);
                     }
@@ -335,58 +389,43 @@ public class PComponent : MonoBehaviour
         {
             case ProcedureType.MIRROR:
                 {
-                    if (_stage >= 1 || other._componentType == PailouComponent.PILLAR)
+                    if (_stage >= 1 || other._componentType == PailouComponent.PILLAR || other._componentType == PailouComponent.SIDE_TOUKUNG ||
+                        other._componentType == PailouComponent.ROOF_EDGE)
                     {
                         GameObject mirroredOb = Instantiate(other.gameObject);
                         mirroredOb.transform.SetParent(transform);
                         Vector3 otherPos = other.transform.localPosition;
-                        mirroredOb.transform.localPosition = new Vector3(-otherPos.x, otherPos.y, otherPos.z);
+                        mirroredOb.transform.localPosition = new Vector3(-otherPos.x - transform.localPosition.x / transform.lossyScale.x, otherPos.y, otherPos.z);
+                        
                         mirroredOb.transform.localScale = other.transform.localScale;
                         mirroredOb.transform.localRotation = new Quaternion(other.transform.localRotation.x, 
-                            -other.transform.localRotation.y, other.transform.localRotation.z, other.transform.localRotation.w);
+                            -other.transform.localRotation.y + 180, other.transform.localRotation.z, other.transform.localRotation.w);
                         other._procedureContainer.Add(mirroredOb.GetComponent<PComponent>());
                     }
                 }
                 break;
             case ProcedureType.ADAPTIVE_HORIZONTAL:
                 {
-                    float mid_x = other.transform.localPosition.x;
-                    float width = GetBounding().x;
+                    //float mid_x = parentPComp.transform.localPosition.x;
+                    float mid_x = 0;
+                    if (other._componentType == PailouComponent.ROOF)
+                    {
+                        mid_x = -transform.localPosition.x / transform.lossyScale.x / transform.localScale.x;
+                    }
+                    float width = parentPComp.GetBounding().x;
                     float obWidth = other.GetBounding().x;
                     int obCount = (int)(width / obWidth);
-                    float offset = width / (float)obCount;
-                    if (obCount % 2 == 0)
+                    if (other._componentType == PailouComponent.ROOF || other._componentType == PailouComponent.MIDDLE_TOUKUNG)
                     {
-                        // 雙數個咚咚
-                        List<PComponent> pComponents = new List<PComponent>();
-                        other.SetLocalPosX(mid_x + offset / 2);
-                        pComponents.Add(other);
-                        for (int i = 1; i < obCount / 2; i++)
-                        {
-                            GameObject arrayedOb = Instantiate(other.gameObject);
-                            PComponent arrayedPComp = arrayedOb.GetComponent<PComponent>();
-                            arrayedOb.transform.SetParent(transform);
-                            arrayedOb.transform.localPosition = other.transform.localPosition;
-                            arrayedOb.transform.localScale = other.transform.localScale;
-                            arrayedPComp.SetLocalPosX(mid_x + offset * (i + 0.5f));
-                            other._procedureContainer.Add(arrayedOb.GetComponent<PComponent>());
-                            pComponents.Add(arrayedOb.GetComponent<PComponent>());
-                        }
-                        for (int i = 0; i < pComponents.Count; i++)
-                        {
-                            GameObject mirroredOb = Instantiate(pComponents[i].gameObject);
-                            mirroredOb.transform.SetParent(transform);
-                            Vector3 otherPos = pComponents[i].transform.localPosition;
-                            mirroredOb.transform.localPosition = new Vector3(-otherPos.x, otherPos.y, otherPos.z);
-                            mirroredOb.transform.localScale = other.transform.localScale;
-                            other._procedureContainer.Add(mirroredOb.GetComponent<PComponent>());
-                        }
+                        obCount = (int)Mathf.Ceil(width / obWidth);
                     }
-                    else
+                    float offset = width / (float)obCount;
+                    if (obCount % 2 == 1)
                     {
                         // 單數個咚咚
                         List<PComponent> pComponents = new List<PComponent>();
-                        for (int i = 1; i <= (int)obCount / 2; i++)
+                        other.SetLocalPosX(mid_x);
+                        for (int i = 1; i <= obCount / 2; i++)
                         {
                             GameObject arrayedOb = Instantiate(other.gameObject);
                             PComponent arrayedPComp = arrayedOb.GetComponent<PComponent>();
@@ -403,6 +442,35 @@ public class PComponent : MonoBehaviour
                             mirroredOb.transform.SetParent(transform);
                             Vector3 otherPos = pComponents[i].transform.localPosition;
                             mirroredOb.transform.localPosition = new Vector3(-otherPos.x, otherPos.y, otherPos.z);
+                            mirroredOb.GetComponent<PComponent>().SetLocalPosX(2 * mid_x, true);
+                            mirroredOb.transform.localScale = other.transform.localScale;
+                            other._procedureContainer.Add(mirroredOb.GetComponent<PComponent>());
+                        }
+                    }
+                    else
+                    {
+                        // 雙數個咚咚
+                        List<PComponent> pComponents = new List<PComponent>();
+                        other.SetLocalPosX(mid_x + offset / 2);
+                        pComponents.Add(other);
+                        for (int i = 1; i < obCount / 2; i++)
+                        {
+                            GameObject arrayedOb = Instantiate(other.gameObject);
+                            PComponent arrayedPComp = arrayedOb.GetComponent<PComponent>();
+                            arrayedOb.transform.SetParent(transform);
+                            arrayedOb.transform.localPosition = other.transform.localPosition;
+                            arrayedOb.transform.localScale = other.transform.localScale;
+                            arrayedPComp.SetLocalPosX(mid_x + offset * (i + 0.5f));
+                            other._procedureContainer.Add(arrayedOb.GetComponent<PComponent>());
+                            pComponents.Add(arrayedPComp);
+                        }
+                        for (int i = 0; i < pComponents.Count; i++)
+                        {
+                            GameObject mirroredOb = Instantiate(pComponents[i].gameObject);
+                            mirroredOb.transform.SetParent(transform);
+                            Vector3 otherPos = pComponents[i].transform.localPosition;
+                            mirroredOb.transform.localPosition = new Vector3(-otherPos.x, otherPos.y, otherPos.z);
+                            mirroredOb.GetComponent<PComponent>().SetLocalPosX(2 * mid_x, true);
                             mirroredOb.transform.localScale = other.transform.localScale;
                             other._procedureContainer.Add(mirroredOb.GetComponent<PComponent>());
                         }

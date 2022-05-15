@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7071126250733144390}
   - component: {fileID: 5981930382604414418}
   - component: {fileID: 3056924840553712725}
+  - component: {fileID: 4340579330193229242}
   m_Layer: 0
   m_Name: ClippedRoof
   m_TagString: Untagged
@@ -97,7 +98,22 @@ MonoBehaviour:
   _componentType: 1
   _compsUnder: []
   _compsUpper: []
-  _compsSide: []
+  _compsRight: []
+  _compsLeft: []
+  _procedureContainer: []
   _procedureType: 2
   _myButton: {fileID: 0}
   _stage: 0
+--- !u!65 &4340579330193229242
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765202795785855799}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8019603, y: 0.94247305, z: 0.60243934}
+  m_Center: {x: 0, y: 0.3176545, z: -0.0009634793}
