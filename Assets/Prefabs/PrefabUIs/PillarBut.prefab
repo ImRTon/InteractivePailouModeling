@@ -233,7 +233,7 @@ MonoBehaviour:
   _pailouComponent: 9
   _dirText: {fileID: 7554597889394295896}
   topCandidateComps: 05000000
-  sideCandidateComps: 
+  sideCandidateComps: 05000000
   bottomCandidateComps: 0a00000009000000
 --- !u!1 &2928481879446802588
 GameObject:

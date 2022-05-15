@@ -98,4 +98,6 @@ MonoBehaviour:
   _compsUnder: []
   _compsUpper: []
   _compsSide: []
+  _procedureType: 1
   _myButton: {fileID: 0}
+  _stage: 0

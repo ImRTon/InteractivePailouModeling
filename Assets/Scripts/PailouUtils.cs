@@ -10,7 +10,7 @@ public static class PailouUtils
     {
         return gameObject.GetComponent<RectTransform>();
     }
-    
+
     public static Direction Opposite(Direction dir)
     {
         switch (dir)
@@ -84,4 +84,19 @@ public enum Direction
     DOWN,
     FRONT,
     BACK
+}
+
+public enum ProcedureType
+{
+    NORMAL,
+    MIRROR,
+    ADAPTIVE_HORIZONTAL,
+    ADAPTIVE_VERTICAL
+}
+
+public enum ScaleOP
+{
+    NONE,
+    MULTIPLY,
+    DIVIDE
 }

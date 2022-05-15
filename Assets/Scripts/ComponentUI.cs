@@ -50,6 +50,8 @@ public class ComponentUI : MonoBehaviour
             // Update tree structure
             GameObject parentBut = _parentComponent._myButton;
             ComponentUI parentCompUI = parentBut.GetComponent<ComponentUI>();
+            // Attach to compoent
+            _parentComponent.AttachWith(_myComponent, _parentInstallDir, Margin.CENTER, 0);
             switch (_parentInstallDir)
             {
                 case Direction.UP:
@@ -73,6 +75,9 @@ public class ComponentUI : MonoBehaviour
             _isOnScene = true;
             // TODO : call GameManager update tree.
             PailouUtils._gameManager.BuildUITree();
+            PailouUtils._gameManager.ClearChoices();
+            // Attach object
+            
         }
     }
 

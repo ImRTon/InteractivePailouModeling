@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2648002695623122735}
   - component: {fileID: 1556594335624444859}
   - component: {fileID: 1859999183221520843}
+  - component: {fileID: 5493300519880991959}
   m_Layer: 0
   m_Name: SideToukung
   m_TagString: Untagged
@@ -97,5 +98,22 @@ MonoBehaviour:
   _componentType: 4
   _compsUnder: []
   _compsUpper: []
-  _compsSide: []
+  _compsRight: []
+  _compsLeft: []
+  _procedureContainer: []
+  _procedureType: 1
   _myButton: {fileID: 0}
+  _stage: 0
+--- !u!65 &5493300519880991959
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8277220626903119198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.718091, y: 0.576951, z: 1.345722}
+  m_Center: {x: -0.012, y: 0.295342, z: -0.0012379885}

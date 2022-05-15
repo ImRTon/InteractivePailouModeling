@@ -88,12 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateChoiceView(ComponentUI componentUI)
     {
-        // Clear the choice view
-        for (int i = 0; i < choiceViewOb.transform.childCount; i++)
-        {
-            GameObject child = choiceViewOb.transform.GetChild(i).gameObject;
-            Destroy(child);
-        }
+        ClearChoices();
         // Set choice view with relation matrix.
         int offsetCount = 0;
         int blockOffsetCount = 0;
@@ -208,5 +203,15 @@ public class GameManager : MonoBehaviour
 
         }
         return null;
+    }
+
+    public void ClearChoices()
+    {
+        // Clear the choice view
+        for (int i = 0; i < choiceViewOb.transform.childCount; i++)
+        {
+            GameObject child = choiceViewOb.transform.GetChild(i).gameObject;
+            Destroy(child);
+        }
     }
 }    

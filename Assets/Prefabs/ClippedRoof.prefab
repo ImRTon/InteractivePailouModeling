@@ -95,3 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentType: 1
+  _compsUnder: []
+  _compsUpper: []
+  _compsSide: []
+  _procedureType: 2
+  _myButton: {fileID: 0}
+  _stage: 0
