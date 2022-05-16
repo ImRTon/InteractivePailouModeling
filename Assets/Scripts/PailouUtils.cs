@@ -11,6 +11,8 @@ public static class PailouUtils
         return gameObject.GetComponent<RectTransform>();
     }
 
+    public static float minY = 0;
+
     public static Direction Opposite(Direction dir)
     {
         switch (dir)
@@ -69,6 +71,8 @@ public enum Margin
     LEFT,
     CENTER,
     RIGHT,
+    OUT_LEFT,
+    OUT_RIGHT,
     
     // Vertical
     TOP,

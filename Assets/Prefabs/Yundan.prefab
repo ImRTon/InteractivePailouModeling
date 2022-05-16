@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8366009886419335149}
   - component: {fileID: 4989904324915958649}
   - component: {fileID: 5995500941618004135}
+  - component: {fileID: 3609614438383132653}
   m_Layer: 0
   m_Name: Yundan
   m_TagString: Untagged
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6915746065841282739, guid: bb178a77bfa1e834691efd7c20da2f01, type: 3}
+  - {fileID: 2100000, guid: 85dfc97d9ca0abb4290d00d9a6a2aaf6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +98,23 @@ MonoBehaviour:
   _componentType: 8
   _compsUnder: []
   _compsUpper: []
-  _compsSide: []
+  _compsRight: []
+  _compsLeft: []
+  _procedureContainer: []
   _procedureType: 1
   _myButton: {fileID: 0}
   _stage: 0
+  _centerPos: {x: 0, y: 0, z: 0}
+--- !u!65 &3609614438383132653
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2484590101654543772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.45474127, y: 0.97469336, z: 0.25961164}
+  m_Center: {x: 0.045400366, y: 0.4888133, z: -0.00025944412}

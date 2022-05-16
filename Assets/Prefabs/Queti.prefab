@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8670900299498915075, guid: 6e7ce8a297073e44eafe60822d026110, type: 3}
+  - {fileID: 2100000, guid: 85dfc97d9ca0abb4290d00d9a6a2aaf6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,10 @@ MonoBehaviour:
   _componentType: 7
   _compsUnder: []
   _compsUpper: []
-  _compsSide: []
+  _compsRight: []
+  _compsLeft: []
+  _procedureContainer: []
   _procedureType: 1
   _myButton: {fileID: 0}
   _stage: 0
+  _centerPos: {x: 0, y: 0, z: 0}

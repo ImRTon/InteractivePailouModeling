@@ -12,6 +12,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5076341735750077129, guid: 407ea6d079abceb458993068674e0797, type: 3}
+      propertyPath: sideCandidateComps.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076341735750077129, guid: 407ea6d079abceb458993068674e0797, type: 3}
       propertyPath: sideCandidateComps.Array.data[0]
       value: 3
       objectReference: {fileID: 0}
