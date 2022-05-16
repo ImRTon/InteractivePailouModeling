@@ -214,4 +214,53 @@ public class GameManager : MonoBehaviour
             Destroy(child);
         }
     }
+
+    public void ClearScene(GameObject root)
+    {
+        PComponent pComponent = root.GetComponent<PComponent>();
+        pComponent._compsLeft.Clear();
+        pComponent._compsRight.Clear();
+        pComponent._compsUnder.Clear();
+        pComponent._compsUpper.Clear();
+        pComponent._procedureContainer.Clear();
+        for (int i = 0; i < root.transform.childCount; i++)
+        {
+            GameObject child = root.transform.GetChild(i).gameObject;
+            ClearComponent(child);
+        }
+        for (int i = 0; i < componentUITreeRoot.transform.childCount; i++)
+        {
+            GameObject child = componentUITreeRoot.transform.GetChild(i).gameObject;
+            ClearUIComponent(child);
+        }
+        ClearChoices();
+        GameObject compUIOb = Instantiate(UILintel, componentUITreeRoot.transform);
+        compUIOb.transform.localPosition = new Vector3(55, -55, 0);
+        ComponentUI compUI = compUIOb.GetComponent<ComponentUI>();
+        compUI._isOnScene = true;
+        compUI._myComponent = pComponent;
+        compUI._parentComponent = _pailou3DManager.transform.GetComponent<PComponent>();
+        compUI.SetInstallDir(Direction.UP);
+        pComponent._myButton = compUIOb;
+    }
+
+    private void ClearComponent(GameObject root)
+    {
+        for (int i = 0; i < root.transform.childCount; i++)
+        {
+            GameObject child = root.transform.GetChild(i).gameObject;
+            ClearComponent(child);
+        }
+        Destroy(root);
+    }
+    
+    private void ClearUIComponent(GameObject root)
+    {
+        for (int i = 0; i < root.transform.childCount; i++)
+        {
+            GameObject child = root.transform.GetChild(i).gameObject;
+            ClearUIComponent(child);
+        }
+        Destroy(root);
+    }
 }    

@@ -2700,8 +2700,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1084020639}
   m_HandleRect: {fileID: 1084020638}
   m_Direction: 0
-  m_Value: -0.000000056829755
-  m_Size: 0.463
+  m_Value: -0.00000017048929
+  m_Size: 0.46300003
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3158,8 +3158,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1685045092}
   m_HandleRect: {fileID: 1685045091}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.463
+  m_Value: 1.0000001
+  m_Size: 0.46300003
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4250,8 +4250,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1395209050}
   m_HandleRect: {fileID: 1395209049}
   m_Direction: 0
-  m_Value: -0.000000065912694
-  m_Size: 0.5
+  m_Value: -0.00000019773812
+  m_Size: 0.50000006
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5755,7 +5755,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2064654085}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1796395799}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ClearScene
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1969728379}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2064654085
 MonoBehaviour:
   m_ObjectHideFlags: 0

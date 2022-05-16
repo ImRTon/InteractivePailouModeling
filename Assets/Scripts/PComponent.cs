@@ -18,6 +18,7 @@ public class PComponent : MonoBehaviour
 
     public GameObject _myButton;
     public int _stage;
+    private Vector3 _centerPos = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -331,7 +332,8 @@ public class PComponent : MonoBehaviour
                         float obWidth = other.GetBounding().x;
                         float parentWidth = parentPComp.GetBounding().x;
                         int obCount = (int)(parentWidth / width);
-                        if (parentPComp._componentType == PailouComponent.ROOF || parentPComp._componentType == PailouComponent.MIDDLE_TOUKUNG)
+                        if (parentPComp._componentType == PailouComponent.ROOF || 
+                            parentPComp._componentType == PailouComponent.MIDDLE_TOUKUNG || parentPComp._componentType == PailouComponent.LINTEL)
                         {
                             obCount = (int)Mathf.Ceil(parentWidth / width);
                         }
@@ -353,17 +355,18 @@ public class PComponent : MonoBehaviour
                         float obWidth = other.GetBounding().x;
                         float parentWidth = parentPComp.GetBounding().x;
                         int obCount = (int)(parentWidth / width);
-                        if (parentPComp._componentType == PailouComponent.ROOF || parentPComp._componentType == PailouComponent.MIDDLE_TOUKUNG)
+                        if (parentPComp._componentType == PailouComponent.ROOF || 
+                            parentPComp._componentType == PailouComponent.MIDDLE_TOUKUNG || parentPComp._componentType == PailouComponent.LINTEL)
                         {
                             obCount = (int)Mathf.Ceil(parentWidth / width);
                         }
-                        float offset = parentWidth / (float)obCount;
+                        float offset = parentWidth / (float)obCount * parentPComp.transform.lossyScale.x / transform.lossyScale.x;
                         if (obCount % 2 == 1)
                             obCount = obCount / 2;
                         else
                             obCount = obCount / 2 - 1;
                         float centerBias = (other.transform.GetComponent<Renderer>().bounds.center.x - other.transform.GetComponent<Collider>().bounds.center.x);
-                        other.SetLocalPosX(offset * obCount + 0);
+                        other.SetLocalPosX(offset * obCount + centerBias / 2);
                     }
                 }
                 break;
@@ -392,14 +395,18 @@ public class PComponent : MonoBehaviour
                     if (_stage >= 1 || other._componentType == PailouComponent.PILLAR || other._componentType == PailouComponent.SIDE_TOUKUNG ||
                         other._componentType == PailouComponent.ROOF_EDGE)
                     {
+                        float centerBias = 0;
                         GameObject mirroredOb = Instantiate(other.gameObject);
                         mirroredOb.transform.SetParent(transform);
                         Vector3 otherPos = other.transform.localPosition;
-                        mirroredOb.transform.localPosition = new Vector3(-otherPos.x - transform.localPosition.x / transform.lossyScale.x, otherPos.y, otherPos.z);
-                        
                         mirroredOb.transform.localScale = other.transform.localScale;
-                        mirroredOb.transform.localRotation = new Quaternion(other.transform.localRotation.x, 
+                        mirroredOb.transform.localRotation = new Quaternion(other.transform.localRotation.x,
                             -other.transform.localRotation.y + 180, other.transform.localRotation.z, other.transform.localRotation.w);
+                        float parentScale = transform.parent.lossyScale.x / transform.localScale.x;
+                        if (other._componentType == PailouComponent.ROOF_EDGE)
+                            centerBias = transform.parent.GetComponent<PComponent>()._centerPos.x;
+                        mirroredOb.transform.localPosition = new Vector3(-otherPos.x - (transform.localPosition.x - centerBias) * 2 * transform.lossyScale.x / transform.localScale.x, otherPos.y, otherPos.z);
+                        
                         other._procedureContainer.Add(mirroredOb.GetComponent<PComponent>());
                     }
                 }
@@ -425,6 +432,7 @@ public class PComponent : MonoBehaviour
                         // ³æ¼Æ­Ó©N©N
                         List<PComponent> pComponents = new List<PComponent>();
                         other.SetLocalPosX(mid_x);
+                        _centerPos = other.transform.localPosition;
                         for (int i = 1; i <= obCount / 2; i++)
                         {
                             GameObject arrayedOb = Instantiate(other.gameObject);
@@ -453,6 +461,7 @@ public class PComponent : MonoBehaviour
                         List<PComponent> pComponents = new List<PComponent>();
                         other.SetLocalPosX(mid_x + offset / 2);
                         pComponents.Add(other);
+                        _centerPos = other.transform.localPosition;
                         for (int i = 1; i < obCount / 2; i++)
                         {
                             GameObject arrayedOb = Instantiate(other.gameObject);
