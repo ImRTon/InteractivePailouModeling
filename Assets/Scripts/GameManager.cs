@@ -44,6 +44,13 @@ public class GameManager : MonoBehaviour
     public GameObject UISideToukung;
     public GameObject UIYundan;
 
+    public float _width = 1;
+    public float _height = 1;
+    public Text _widthText;
+    public Text _heightText;
+    public Slider _widthSlider;
+    public Slider _heightSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -213,6 +220,7 @@ public class GameManager : MonoBehaviour
             GameObject child = choiceViewOb.transform.GetChild(i).gameObject;
             Destroy(child);
         }
+        ResetControlPanel();
     }
 
     public void ClearScene(GameObject root)
@@ -242,6 +250,7 @@ public class GameManager : MonoBehaviour
         compUI._parentComponent = _pailou3DManager.transform.GetComponent<PComponent>();
         compUI.SetInstallDir(Direction.UP);
         pComponent._myButton = compUIOb;
+        ResetControlPanel();
     }
 
     private void ClearComponent(GameObject root)
@@ -262,5 +271,25 @@ public class GameManager : MonoBehaviour
             ClearUIComponent(child);
         }
         Destroy(root);
+    }
+
+    public void OnWidthPercentageChange()
+    {
+        float value = _widthSlider.value * 100f;
+        _widthText.text = value.ToString() + " %";
+    }
+
+    public void OnHeightPercentageChange()
+    {
+        float value = _heightSlider.value * 100f;
+        _heightText.text = value.ToString() + " %";
+    }
+
+    private void ResetControlPanel()
+    {
+        _widthSlider.value = 1f;
+        _heightSlider.value = 1f;
+        _widthText.text = "100 %";
+        _heightText.text = "100 %";
     }
 }    

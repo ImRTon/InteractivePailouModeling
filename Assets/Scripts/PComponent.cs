@@ -299,6 +299,8 @@ public class PComponent : MonoBehaviour
         // Before the position is set.
         // Count length for dynamic length content
         PComponent parentPComp = null;
+        other.transform.localScale = new Vector3(other.transform.localScale.x * PailouUtils._gameManager._widthSlider.value, 
+            other.transform.localScale.y * PailouUtils._gameManager._heightSlider.value, other.transform.localScale.z * PailouUtils._gameManager._widthSlider.value);
         switch (_componentType)
         {
             case PailouComponent.LINTEL:
@@ -633,7 +635,24 @@ public class PComponent : MonoBehaviour
                     {
                         mid_x = -transform.localPosition.x / transform.lossyScale.x / transform.localScale.x;
                     }
+
+                    if (_compsUnder.Count == 2 && other._componentType == PailouComponent.FLOWER_BOARD && _stage >= 1)
+                    {
+                        PComponent pillar = _compsUnder[0];
+                        if (pillar._componentType != PailouComponent.PILLAR)
+                            pillar = _compsUnder[1];
+                        mid_x -= (transform.position.x + GetOffsetOf(Direction.RIGHT).x -
+                            pillar.transform.position.x - pillar.GetOffsetOf(Direction.LEFT).x) / 2;
+                    }
                     float width = other.GetParentWidth(dir);
+                    if (_compsUnder.Count == 2 && other._componentType == PailouComponent.FLOWER_BOARD && _stage >= 1)
+                    {
+                        PComponent pillar = _compsUnder[0];
+                        if (pillar._componentType != PailouComponent.PILLAR)
+                            pillar = _compsUnder[1];
+                        width -= (transform.position.x + GetOffsetOf(Direction.RIGHT).x -
+                            pillar.transform.position.x - pillar.GetOffsetOf(Direction.LEFT).x) / 4f;
+                    }
                     float obWidth = other.GetBounding().x;
                     int obCount = (int)(width / obWidth);
                     if (other._componentType == PailouComponent.ROOF || other._componentType == PailouComponent.MIDDLE_TOUKUNG)
